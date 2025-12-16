@@ -5,7 +5,7 @@ from django.core.mail.backends.locmem import EmailBackend
 def test_gitignore():
     try:
         with open(
-            settings.BASE_DIR / ".." / ".gitignore",
+            settings.BASE_DIR / ".gitignore",
             "r",
             encoding="utf-8",
             errors="ignore",
