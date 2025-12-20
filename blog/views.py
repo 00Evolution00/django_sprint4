@@ -10,7 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse, reverse_lazy
 
 from .models import Post, Category, Comment
-from .forms import PostForm, CommentForm, UserEditForm
+from .forms import PostForm, CommentForm, UserEditForm, UserRegistrationForm
 
 User = get_user_model()
 
@@ -143,8 +143,7 @@ def add_comment(request, post_id):
 
 class RegisterView(CreateView):
     """Регистрация пользователя."""
-
-    form_class = UserCreationForm
+    form_class = UserRegistrationForm  
     template_name = 'registration/registration_form.html'
     success_url = reverse_lazy('blog:index')
 
