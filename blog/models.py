@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import Count
+from django.utils.timezone import now
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -126,3 +128,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Комментарий от {self.author}'
+
+
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            is_published=True,
+            pub_date__lte=now(),
+            category__is_published=True
+        ).annotate(comment_count=Count('comments')).order_by('-pub_date')
